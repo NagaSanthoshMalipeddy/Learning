@@ -1,0 +1,41 @@
+
+
+interface ThirdPartyLib{
+  String getData();
+}
+
+class HexData implements ThirdPartyLib{
+  public String getData(){
+    return "123";
+  }
+}
+class OctData implements ThirdPartyLib{
+  public String getData(){
+    return "674";
+  }
+}
+
+interface Adapter{
+  void getData();
+}
+
+class AdapterImpl implements Adapter{
+  ThirdPartyLib thirdPartyLib;
+  AdapterImpl(ThirdPartyLib thirdPartyLib){
+    this.thirdPartyLib = thirdPartyLib;
+  }
+  public void getData(){
+    System.out.println(Integer.parseInt(thirdPartyLib.getData(),16));
+  }
+}
+
+public class Main {
+  
+  public static void main(String[] args) {
+   Adapter adapter = new AdapterImpl(new HexData());
+    adapter.getData();
+    adapter = new AdapterImpl(new OctData());
+    adapter.getData();
+  }
+
+}
