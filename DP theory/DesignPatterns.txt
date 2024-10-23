@@ -1,0 +1,78 @@
+Structural patterns are concerned with how classes and objects are composed to form larger structures. This helps the different libraries to work together
+
+Behavioral DP are concerned about how the flow will be there and how the object behaves
+
+
+Strategy DP :-
+
+here we will encapsulate the family of algorithms like classes with method which contain logic and whatever the client request for a strategy we will give it based on the request
+
+State DP :-
+
+here the next state of the object is defined by the code and not by the user and the entire functionality of the context obj i.e, main object changes based on the change in state
+
+Observable DP :-
+
+here if the observable object has any update then we should update the same change to all the observers of it
+
+Chain of Responsibilities :-
+
+The request will be sent and the request will be handled by the objects 
+one after the other based on how we bind the chain
+
+
+Template Method Design Pattern :- (we will write sequence of method calls in a method so the name is template method DP)
+
+If all the classes need to follow specific steps to perform a task and all classes have their own implementation
+
+Memento DP :- 
+
+This design pattern helps us to store the state of the object without exposing the behavior(implementations) of that object
+this is used to save states of the context obj and we can restore the state
+originator - context/main obj
+memento - copy of originator class without methods and will only have attribute which represents state of originator
+caretaker - which will store all mementos and give it when we want to restore the originator to particular state
+client
+
+Null Object DP :-
+
+This design pattern is used to avoid the null checks where we will create a null object for all concrete classes and will use that null Object instead of having null type which will give NPE
+so by using null Object which have empty implementation we can avoid null checks
+
+
+
+Structural DP :-
+
+Decorator DP :-
+this DP helps to reduce complexity of creating multiple classes when we want combinations of classes feature instead we can use Decorator DP in which we will create classes for all types and uses its objects combinedly (pizza, toppings ex)
+
+Adapter DP :- 
+adapter Dp is used to combine incompatible types like client and adoptee and make it adaptable and during this the structure increased
+
+Facade DP :-
+Having an interface between client and subsystem is facade. we call that interface as facade
+facade can have any no of objects
+facade is used to solve the usage of complex subsystem by providing client a simple interface which will have complex calls to subsystem
+
+Proxy DP :-
+Proxy is like a real object but it is like a middleware present b/w interface and a real object
+client calls proxy and proxy can perform pre operation call, post operation call, or anything during calling real object
+login, logout functionality
+permission checking before calling subsystem can be done using proxy
+
+
+Bridge DP :-
+bridge DP is similar to Strategy DP where Strategy DP tells us we can invoke any strategy just by choosing what we want during runtime but bridge DP talks about increasing the total no of implementations and just by adding that Interface reference in the context class will increase the structure without any changes in the existing context class or bridge interface implementation class because we can create implementation during runtime dynamically
+
+
+
+Creational DP :-
+Creational DP talks about how we manage creating the objects and abstract the creation from the implemented concrete classes
+
+Factory DP :-
+Factory design pattern is used to create an object by using an interface which have implemented classes which will have factory Method in it
+
+Abstract Factory DP :-
+Abstract factory DP is used to create an object by using the interface which have families of factories
+
+

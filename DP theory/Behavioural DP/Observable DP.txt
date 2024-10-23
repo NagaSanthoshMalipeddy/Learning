@@ -1,0 +1,109 @@
+public interface IObservable {
+  public void add(IObserver obj);
+
+  public void remove(IObserver obj);
+
+  public void setData(int data);
+
+  public void notifyObservers();
+}
+
+public interface IObserver {
+  public void update();
+}
+
+public class ObserverImpl {
+  public void update() {
+
+  }
+}
+
+import java.util.*;
+
+public class ScoreObservable implements IObservable {
+  List<IObserver> l = new ArrayList<IObserver>();
+
+  public void add(IObserver obj) {
+    l.add(obj);
+  }
+
+  public void remove(IObserver obj) {
+    l.remove(obj);
+  }
+
+  public void setData(int data) {
+    notify();
+  }
+
+  public void notifyObservers() {
+    for (IObserver o : l) {
+      o.update();
+    }
+  }
+}
+
+public class ScoreObserver implements IObserver {
+
+  public ScoreObserver(IObservable obj) {
+    obj.add(this);
+  }
+
+  public void update() {
+    System.out.println("ScoreObserver is called");
+  }
+}
+import java.util.*;
+
+public class WeatherObservable implements IObservable {
+  List<IObserver> l = new ArrayList<IObserver>();
+
+  public void add(IObserver obj) {
+    l.add(obj);
+  }
+
+  public void remove(IObserver obj) {
+    l.remove(obj);
+  }
+
+  public void setData(int data) {
+    notify();
+  }
+
+  public void notifyObservers() {
+    for (IObserver o : l) {
+      o.update();
+    }
+  }
+}
+
+public class WeatherObserver implements IObserver {
+
+  public WeatherObserver(IObservable obj) {
+    obj.add(this);
+  }
+
+  public void update() {
+    System.out.println("WeatherObserver is called");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    System.out.println("Hello world!");
+
+    WeatherObservable wbl = new WeatherObservable();
+    new WeatherObserver(wbl);
+    new WeatherObserver(wbl);
+
+    ScoreObservable sbl = new ScoreObservable();
+    new ScoreObserver(sbl);
+    new ScoreObserver(sbl);
+    new ScoreObserver(sbl);
+
+    wbl.notifyObservers();
+    sbl.notifyObservers();
+
+    new WeatherObserver(wbl);
+    wbl.notifyObservers();
+  }
+}

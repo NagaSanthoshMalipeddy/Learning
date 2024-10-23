@@ -1,0 +1,41 @@
+abstract class Car{
+  public static Car getCarObj(String name){
+    if(name.equals("suv")){
+      return new Suv();
+    }
+    return new NullSuv();
+  }
+  public abstract void drive();
+}
+class Suv extends Car{
+  public void drive(){
+    System.out.println("Suv is driving");
+  }
+}
+class NullSuv extends Car {
+  public void drive(){}
+}
+
+class Context {
+  Car c;
+  public Context(){}
+  public void setCar(String name){
+    c=Car.getCarObj(name);
+  }
+  public void drive(){
+    c.drive();
+  }
+}
+
+public class Main {
+  
+  public static void main(String[] args) {
+    Context c=new Context();
+    c.setCar("suv");
+    c.drive();
+    c.setCar("car");
+    c.drive();c.setCar("suv");
+    c.drive();
+  }
+
+}

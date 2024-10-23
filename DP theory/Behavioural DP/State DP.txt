@@ -1,0 +1,126 @@
+
+class ItemShelfs{
+  int count;
+  String itemName;
+  int price;
+  int code;
+  void removeItem(){
+    if(count>0){
+      count--;
+    }
+    System.out.println("No items in this Item Shelf");
+  }
+}
+class Inventory {
+  public ItemShelfs[][] itemShelfs;
+  public Inventory(){
+    
+  }
+  public void addItem(int row, int col, int add){
+    itemShelfs[row][col].count+=add;
+  }
+}
+interface IState{
+  void insertCoin();
+  void validateAndSetCode(int code, VendingMachine vendingMachine);
+  void dispenseItem();
+}
+class IdleState implements IState{
+  VendingMachine vendingMachine;
+  IdleState(VendingMachine vendingMachine){
+    this.vendingMachine.setState(new CoinInsertionState(vendingMachine));
+  }
+  
+  public void insertCoin(){
+    System.out.println("Error!! You Cant insert coin in IdleState");
+  }
+  public void validateAndSetCode(int code, VendingMachine vendingMachine){
+    System.out.println("ERROR!! You need to insert coin first before entering code");
+  }
+  public void dispenseItem(){
+    System.out.println("ERROR!! You need to insert coin first before dispensing item");
+  }
+}
+class CoinInsertionState implements IState{
+  VendingMachine vendingMachine;
+  CoinInsertionState(VendingMachine vendingMachine){
+      this.vendingMachine=vendingMachine;
+  }
+  public void insertCoin(){
+    System.out.println("Inserted Coin");
+    vendingMachine.setState(new CodeValidationState(vendingMachine));
+  }
+  public void validateAndSetCode(int code, VendingMachine vendingMachine){
+    System.out.println("ERROR!! You need to insert coin first before entering code");
+  }
+  public void dispenseItem(){
+    System.out.println("ERROR!! You need to insert coin first before dispensing item");
+  }
+}
+class CodeValidationState implements IState{
+  VendingMachine vendingMachine;
+  CodeValidationState(VendingMachine vendingMachine){
+      this.vendingMachine=vendingMachine;
+  }
+  public void insertCoin(){
+    System.out.println("ERROR!! You cant insert coin after proceeding");
+  }
+  public void validateAndSetCode(int code, VendingMachine vendingMachine){
+    if(!! (code >100 && code <= 109)){
+      System.out.println("Invalid code");
+      return;
+    }
+    String itemName = "";
+    for(ItemShelfs[] itemShelfs: vendingMachine.inventory.itemShelfs){
+      if(itemShelfs[0].code==code){
+        itemName=itemShelfs[0].itemName;
+      }
+      if(itemShelfs[1].code == code){
+        itemName=itemShelfs[1].itemName;
+      }
+      if(itemShelfs[2].code==code){
+        itemName=itemShelfs[2].itemName;
+      }
+    }
+    System.out.println("Code is valid and you have choosen "+itemName);
+    vendingMachine.setState(new DispenceItemState(vendingMachine));
+  }
+  public void dispenseItem(){
+    System.out.println("ERROR!! You need to enter code first before dispensing item");
+  }
+}
+class DispenceItemState implements IState{
+  VendingMachine vendingMachine;
+  DispenceItemState(VendingMachine vendingMachine){
+      this.vendingMachine=vendingMachine;
+  }
+  public void insertCoin(){
+    System.out.println("Inserted Coin");
+  }
+  public void validateAndSetCode(int code, VendingMachine vendingMachine){
+    System.out.println("ERROR!! You need to insert coin first before entering code");
+  }
+  public void dispenseItem(){
+    System.out.println("Items sent");
+    vendingMachine.setState(new IdleState(vendingMachine));
+  }
+}
+class VendingMachine{
+  public Inventory inventory;
+  public IState vendingMachineState;
+  
+  public VendingMachine(){
+    inventory = new Inventory();
+  }
+  public void setState(IState state){
+    vendingMachineState = state;
+  }
+  public IState getVendingMachineState(){
+    return vendingMachineState;
+  }
+}
+public class Main {
+  public static void main(String[] args) {
+    
+  }
+}

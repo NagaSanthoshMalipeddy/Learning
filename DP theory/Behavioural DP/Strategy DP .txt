@@ -1,0 +1,137 @@
+
+// interface Vehicle{
+//   void drive();
+//   void calcPrice();
+// }
+
+// class Bike implements Vehicle{
+//   public void drive(){
+//     System.out.println("driving with 2 wheels");
+//   }
+//   public void calcPrice(){
+//     System.out.println(100+200+300+600);
+//   }
+// }
+
+// class Car implements Vehicle{
+//   public void drive(){
+//     System.out.println("driving with 4 wheels");
+//   }
+//   public void calcPrice(){
+//     System.out.println(300+500+400);
+//   }
+// }
+
+// class Cycle implements Vehicle{
+//   public void drive(){
+//     System.out.println("driving with 2 wheels");
+//   }
+//   public void calcPrice(){
+//     System.out.println(100+200+900+600);
+//   }
+// }
+
+// class Jeep implements Vehicle{
+//   public void drive(){
+//     System.out.println("driving with 4 wheels");
+//   }
+//   public void calcPrice(){
+//     System.out.println(300+7800+400);
+//   }
+// }
+
+// public class Main {
+//   public static void main(String[]args){
+//       System.out.println("hello");
+//   }
+// }
+
+
+// here we have created an interface called vehicle and we have created two classes called bike,car,cycle and jeep. and the implementation is duplicated among children so we can use Strategy Design Pattern for Drive()
+
+
+interface Vehicle{
+  void driveNow();
+}
+
+class Bike implements Vehicle{
+  DriveStrategy driveStrategy;
+  Bike(DriveStrategy driveStrategy){
+    this.driveStrategy = driveStrategy;
+  }
+  // public void drive(){
+  //   System.out.println("driving with 2 wheels");
+  // }
+  public void driveNow(){
+    driveStrategy.drive();
+  }
+}
+
+class Car implements Vehicle{
+  DriveStrategy driveStrategy;
+  Car(DriveStrategy driveStrategy){
+    this.driveStrategy = driveStrategy;
+  }
+  // public void drive(){
+  //   System.out.println("driving with 4 wheels");
+  // }
+  public void driveNow(){
+    driveStrategy.drive();//System.out.println(300+500+400);
+  }
+}
+
+class Cycle implements Vehicle{
+  DriveStrategy driveStrategy;
+  Cycle(DriveStrategy driveStrategy){
+    this.driveStrategy = driveStrategy;
+  }
+  // public void drive(){
+  //   System.out.println("driving with 2 wheels");
+  //}
+  public void driveNow(){
+    driveStrategy.drive();//System.out.println(100+200+900+600);
+  }
+}
+
+class Jeep implements Vehicle{
+  DriveStrategy driveStrategy;
+  Jeep(DriveStrategy driveStrategy){
+    this.driveStrategy = driveStrategy;
+  }
+  // public void drive(){
+  //   System.out.println("driving with 4 wheels");
+  // }
+  public void driveNow(){
+    driveStrategy.drive();//System.out.println(300+7800+400);
+  }
+}
+
+interface DriveStrategy{
+  void drive();
+}
+
+class TwoDrive implements DriveStrategy{
+  public void drive(){
+    System.out.println("driving with 2 wheels");
+  }
+}
+
+class FourDrive implements DriveStrategy{
+  public void drive(){
+    System.out.println("driving with 4 wheels");
+  }
+}
+
+public class Main {
+  public static void main(String[]args){
+    Vehicle v;
+    v = new Bike(new TwoDrive());
+    v.driveNow();
+    v=new Car(new FourDrive());
+    v.driveNow();
+    v=new Cycle(new TwoDrive());
+    v.driveNow();
+    v=new Jeep(new FourDrive());
+    v.driveNow();
+  }
+}

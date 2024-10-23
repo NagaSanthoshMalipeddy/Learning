@@ -1,0 +1,78 @@
+
+
+abstract class MoneyHandler{
+  MoneyHandler nextHandler;
+  public abstract void handle(int amount);
+  public void setNextHandler(MoneyHandler nextHandler){
+    this.nextHandler=nextHandler;
+  }
+}
+
+
+class FHandler extends MoneyHandler {
+  public void handle(int amount){
+    int count=0;
+    while(amount>=500){
+      amount-=500;
+      count++;
+    }
+    if(count==0){
+      System.out.println(count+" - 500 notes");
+    }
+    
+  }
+}
+
+
+abstract class Payment{
+  public abstract void calcCharge();
+  public abstract void pay();
+  public abstract void debit();
+  public abstract void credit();
+  public void payment(){
+    calcCharge();
+    pay();
+    debit();
+    credit();
+  }
+}
+
+class PhonePe extends Payment{
+  public void calcCharge(){
+    System.out.println("PhonePe charge is Rs.10");
+  }
+  public void pay(){
+    System.out.println("PhonePe payment is done");
+  }
+  public void debit(){
+    System.out.println("PhonePe debit is done");
+  }
+  public void credit(){
+    System.out.println("PhonePe credit is done");
+  }
+}
+
+class PayTm extends Payment{
+  public void calcCharge(){
+    System.out.println("PayTm charge is Rs.20");
+  }
+  public void pay(){
+    System.out.println("PayTm payment is done");
+  }
+  public void debit(){
+    System.out.println("PayTm debit is done");
+  }
+  public void credit(){
+    System.out.println("PayTm credit is done");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Payment p = new PhonePe();
+    p.payment();
+    p=new PayTm();
+    p.payment();
+  }
+
+}

@@ -1,0 +1,78 @@
+
+
+abstract class MoneyHandler{
+  MoneyHandler nextHandler;
+  public abstract void handle(int amount);
+  public void setNextHandler(MoneyHandler nextHandler){
+    this.nextHandler=nextHandler;
+  }
+}
+
+
+class FHandler extends MoneyHandler {
+  public FHandler(MoneyHandler nextHandler){
+    this.setNextHandler(nextHandler);
+  }
+  public void handle(int amount){
+    int count=0;
+    while(amount>=500){
+      amount-=500;
+      count++;
+    }
+    if(count!=0){
+      System.out.println(count+" - 500 notes");
+    }
+    if(nextHandler!=null){
+      this.nextHandler.handle(amount);
+    }
+  }
+}
+
+class THandler extends MoneyHandler {
+  public THandler(MoneyHandler nextHandler){
+    this.setNextHandler(nextHandler);
+  }
+  public void handle(int amount){
+    int count=0;
+    while(amount>=200){
+      amount-=200;
+      count++;
+    }
+    if(count!=0){
+      System.out.println(count+" - 200 notes");
+    }
+    if(nextHandler!=null){
+      this.nextHandler.handle(amount);
+    }
+  }
+}
+
+class OHandler extends MoneyHandler {
+  public OHandler(MoneyHandler nextHandler){
+    this.setNextHandler(nextHandler);
+  }
+  public OHandler(){
+    
+  }
+  public void handle(int amount){
+    int count=0;
+    while(amount>=100){
+      amount-=100;
+      count++;
+    }
+    if(count!=0){
+      System.out.println(count+" - 100 notes");
+    }
+    if(nextHandler!=null){
+      this.nextHandler.handle(amount);
+    }
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    MoneyHandler handler1 = new FHandler(new THandler(new OHandler()));
+    handler1.handle(4600);
+  }
+
+}

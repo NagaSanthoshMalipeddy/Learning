@@ -1,0 +1,73 @@
+import java.util.*;
+class Originator{
+  int token_num;
+  String item_name;
+  int price;
+
+  CareTaker c;
+  public Originator(CareTaker c){
+    this.c=c;
+  }
+
+  public void createMemento(){
+    c.add(new Memento(token_num,item_name,price));
+  }
+  public void undoState(){
+    Memento m=c.undo();
+    this.token_num=m.token_num;
+    this.price=m.price;
+    this.item_name=m.item_name;
+  }
+  public void restoreMemento(Memento memento){
+    this.token_num=memento.token_num;
+    this.item_name=memento.item_name;
+    this.price=memento.price;
+  }
+  
+  public int getToken_num(){
+    return token_num;
+  }
+  public void setToken_num(int token_num){
+    this.token_num=token_num;
+  }
+  public String getItem_name(){
+    return item_name;
+  }
+  public void setItem_name(String item_name){
+    this.item_name=item_name;
+  }
+  public int getPrice(){
+    return price;
+  }
+  public void setPrice(int price){
+    this.price=price;
+  }
+}
+
+class Memento{
+  int token_num;
+  String item_name;
+  int price;
+  Memento(int token_num,String item_name,int price){}
+}
+class CareTaker{
+  List<Memento>obj=new ArrayList<Memento>();
+  public void add(Memento memento){
+    obj.add(memento);
+  }
+  public Memento undo(){
+    if(obj.size()!=0){
+      Memento m=obj.get(obj.size()-1);
+      obj.remove(obj.size()-1);
+      return m;
+    }
+    return null;
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    
+  }
+
+}
